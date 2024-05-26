@@ -3,6 +3,7 @@ import style from "./board.module.css";
 import {ToChar} from "../../Hooks/UseToChar";
 import Ranks from "./Coordinates/Ranks";
 import Files from "./Coordinates/Files";
+import Pieces from "./Pieces";
 const Board = () => {
   const ranks = Array(8)
     .fill()
@@ -15,6 +16,7 @@ const Board = () => {
   };
   return (
     <div className={style.board}>
+      <Pieces/>
       <Files files={files}/>
       {ranks.map((rank, i) => {
         return (

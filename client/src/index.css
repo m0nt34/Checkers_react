@@ -5,20 +5,21 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --bg_color:#302e2b;
-  --dark_sqr:#739552;
-  --light_sqr:#ebecd0;
+  --bg_color: #302e2b;
+  --dark_sqr: #739552;
+  --light_sqr: #ebecd0;
+  --dark_pcs: #5c5957;
+  --light_pcs: #f9f9f9;
 }
-body{
+body {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background-color: var(--bg_color);
 }
-
