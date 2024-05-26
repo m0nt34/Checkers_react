@@ -1,13 +1,27 @@
 import React from "react";
-import { ToChar } from "../../../Hooks/UseToChar";
-const Ranks = () => {
-  const ranks = Array(8)
-    .fill()
-    .map((x, i) => ToChar(i));
+
+const Ranks = ({ ranks }) => {
+  const setColor = (i) => {
+    return i % 2 == 0 ? "var(--light_sqr)" : "var(--dark_sqr)";
+  };
   return (
-    <div>
-      {ranks.map((rank) => (
-        <span key={rank}>{rank}</span>
+    <div style={{ display: "flex", position: "absolute", bottom: 0 }}>
+      {ranks.map((rank, i) => (
+        <span
+          style={{
+            width: 100,
+            fontWeight: 600,
+            fontSize: 22,
+            color: setColor(i),
+            display: "flex",
+            justifyContent: "flex-end",
+            marginRight: "1%",
+            zIndex: 2,
+          }}
+          key={rank}
+        >
+          {rank}
+        </span>
       ))}
     </div>
   );

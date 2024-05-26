@@ -2,6 +2,7 @@ import React from "react";
 import style from "./board.module.css";
 import {ToChar} from "../../Hooks/UseToChar";
 import Ranks from "./Coordinates/Ranks";
+import Files from "./Coordinates/Files";
 const Board = () => {
   const ranks = Array(8)
     .fill()
@@ -14,20 +15,21 @@ const Board = () => {
   };
   return (
     <div className={style.board}>
+      <Files files={files}/>
       {ranks.map((rank, i) => {
         return (
           <div className={style.rank} key={rank}>
             {files.map((file, j) => {
               return (
                 <div className={style.sqr} key={rank + " " + file} style={{backgroundColor:getBgColor(i,j)}}>
-                  {rank + " " + file}
+                  {/* {rank + " " + file} */}
                 </div>
               );
             })}
           </div>
         );
       })}
-      <Ranks></Ranks>
+      <Ranks ranks={ranks}/>
     </div>
   );
 };

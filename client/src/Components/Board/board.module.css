@@ -3,6 +3,7 @@
   grid-template-columns: repeat(8,100px);
   border-radius: 8px;
   overflow: hidden;
+  position: relative;
 }
 .board .sqr{
   display: flex;
