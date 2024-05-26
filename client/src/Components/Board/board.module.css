@@ -1,0 +1,12 @@
+.board{
+  display: grid;
+  grid-template-columns: repeat(8,100px);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.board .sqr{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
