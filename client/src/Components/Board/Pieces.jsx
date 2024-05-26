@@ -1,5 +1,6 @@
 import React from "react";
 import { SetPosition } from "./SetPosition";
+import Piece from "./Piece";
 const Pieces = () => {
   const position = SetPosition();
   console.log(position);
@@ -25,7 +26,7 @@ const Pieces = () => {
                 width:100
               }}
             >
-              {b}
+              <Piece pc={b}/>
             </div>
           );
         });
