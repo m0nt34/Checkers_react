@@ -12,7 +12,6 @@ const Pieces = () => {
 
   const calculateCoords = (e) => {
     const { width, left, top } = ref.current.getBoundingClientRect();
-
     const size = width / 8;
     const y = Math.floor((e.clientX - left) / size);
     const x = Math.floor((e.clientY - top) / size);
@@ -34,7 +33,6 @@ const Pieces = () => {
           rank:rank,
           file:file
         })
-        
       }}
       onDragEnd={(e) => {
         const newPosition = CopyPosition(position)
