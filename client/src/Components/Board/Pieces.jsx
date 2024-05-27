@@ -1,33 +1,68 @@
-import React from "react";
-import { SetPosition } from "./SetPosition";
+import React, { useReducer, useRef, useState } from "react";
+import { SetPosition, CopyPosition } from "./SetPosition";
 import Piece from "./Piece";
 const Pieces = () => {
-  const position = SetPosition();
-  console.log(position);
+  const ref = useRef(null);
+  const [position, setPosition] = useState(SetPosition());
+  const [curPc, setCurPc] = useState({
+    pc: null,
+    rank: null,
+    file: null,
+  });
+
+  const calculateCoords = (e) => {
+    const { width, left, top } = ref.current.getBoundingClientRect();
+
+    const size = width / 8;
+    const y = Math.floor((e.clientX - left) / size);
+    const x = Math.floor((e.clientY - top) / size);
+    return { x, y };
+  };
   return (
     <div
+      ref={ref}
       style={{
         position: "absolute",
         display: "grid",
         gridTemplateColumns: " repeat(8,100px)",
         gridTemplateRows: " repeat(8,100px)",
       }}
+      onDragStart={(e) => {
+        const [pc, rank, file] = e.dataTransfer.getData("text").split(",");
+        setCurPc({
+          pc:pc,
+          rank:rank,
+          file:file
+        })
+        
+      }}
+      onDragEnd={(e) => {
+        const newPosition = CopyPosition(position)
+        
+        newPosition[curPc.rank][curPc.file] = '';
+        
+        const { x, y } = calculateCoords(e);
+        newPosition[x][y] = curPc.pc;
+        setPosition(newPosition)
+      }}
     >
       {position.map((a, i) => {
         return a.map((b, j) => {
-          return (
+          return b ? (
             <div
               key={i + " " + j}
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                height:100,
-                width:100
+                height: 100,
+                width: 100,
               }}
             >
-              <Piece pc={b}/>
+              <Piece pc={b} rank={i} file={j} />
             </div>
+          ) : (
+            <div key={i + " " + j}></div>
           );
         });
       })}
