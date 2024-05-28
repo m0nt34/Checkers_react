@@ -1,5 +1,7 @@
 import React from "react";
 import style from "./board.module.css";
+import wp from '../../assets/Pieces_Imgs/wp.png'
+import bp from '../../assets/Pieces_Imgs/bp.png'
 const Piece = ({ pc, rank, file }) => {
   const onDragStart = (e) => {
     e.dataTransfer.setData("text/plain", `${pc},${rank},${file}`);
@@ -10,7 +12,8 @@ const Piece = ({ pc, rank, file }) => {
   return (
     <>
       {pc === "bp" ? (
-        <div
+        <img
+        src={bp}
           style={{ cursor: "default" }}
           className={style.black_b}
           draggable="true"
@@ -20,9 +23,10 @@ const Piece = ({ pc, rank, file }) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = "move";
           }}
-        ></div>
+        ></img>
       ) : (
-        <div
+        <img
+        src={wp}
           style={{ cursor: "default" }}
           className={style.white_b}
           draggable="true"
@@ -32,7 +36,7 @@ const Piece = ({ pc, rank, file }) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = "move";
           }}
-        ></div>
+        ></img>
       )}
     </>
   );

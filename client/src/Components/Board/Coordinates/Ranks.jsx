@@ -5,9 +5,18 @@ const Ranks = ({ ranks }) => {
     return i % 2 == 0 ? "var(--light_sqr)" : "var(--dark_sqr)";
   };
   return (
-    <div style={{ display: "flex", position: "absolute", bottom: 0 }}>
+    <div
+      draggable="false"
+      style={{
+        display: "flex",
+        position: "absolute",
+        bottom: 0,
+        userSelect: "none",
+      }}
+    >
       {ranks.map((rank, i) => (
         <span
+          draggable="false"
           style={{
             width: 100,
             fontWeight: 600,
@@ -17,7 +26,7 @@ const Ranks = ({ ranks }) => {
             justifyContent: "flex-end",
             marginRight: "1%",
             zIndex: 2,
-            userSelect:'none'
+            userSelect: "none",
           }}
           key={rank}
         >

@@ -1,34 +1,34 @@
-.board{
+.board {
   display: grid;
-  grid-template-columns: repeat(8,100px);
+  grid-template-columns: repeat(8, 100px);
   border-radius: 8px;
   overflow: hidden;
   position: relative;
 }
-.board .sqr{
+.board .sqr {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100px;
+  pointer-events: none;
 }
 
-.white_b{
-  height:65%;
-  width:65%;
-  border-radius: 999px;
-  border: 4px solid black;
-  background-color: var(--light_pcs);
+.white_b {
+  height: 80%;
+  width: 80%;
+  user-select: none;
+
   cursor: pointer;
 }
-.black_b{
-  height:65%;
-  width:65%;
-  border-radius: 999px;
-  border: 4px solid black;
-  background-color: var(--dark_pcs);
+.black_b {
+  height: 80%;
+  width: 80%;
+  user-select: none;
+
   cursor: pointer;
 }
 
-.white_b:active ,.black_b:active{
+.white_b:active,
+.black_b:active {
   cursor: grab;
 }

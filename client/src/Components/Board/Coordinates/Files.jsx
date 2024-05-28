@@ -6,18 +6,26 @@ const Files = ({ files }) => {
   };
   return (
     <div
-      style={{ display: "grid", position: "absolute", left: "1%", top: "0.5%" }}
+      draggable="false"
+      style={{
+        display: "grid",
+        position: "absolute",
+        left: "1%",
+        top: "0.5%",
+        userSelect: "none",
+      }}
     >
       {files.map((file, i) => {
         return (
           <span
+            draggable="false"
             style={{
               height: 100,
               fontWeight: 600,
               fontSize: 22,
               color: setColor(i),
               zIndex: 2,
-              userSelect:'none'
+              userSelect: "none",
             }}
             key={file}
           >

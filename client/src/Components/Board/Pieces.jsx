@@ -15,7 +15,7 @@ const Pieces = () => {
     const size = width / 8;
     const y = Math.floor((e.clientX - left) / size);
     const x = Math.floor((e.clientY - top) / size);
-    if (x >= 8 || x <= -1 || y >= 8 || y <= -1) {
+    if (x > 7 || x < 0 || y > 7 || y < 0) {
       return { x: null, y: null };
     }
 
@@ -44,12 +44,11 @@ const Pieces = () => {
         newPosition[curPc.rank][curPc.file] = "";
 
         const { x, y } = calculateCoords(e);
-
-        if (x && y) {
+        console.log(x,y)
+        if (x!==null) {
           newPosition[x][y] = curPc.pc;
           setPosition(newPosition);
-        } else {
-        }
+        } 
       }}
     >
       {position.map((a, i) => {
@@ -64,6 +63,7 @@ const Pieces = () => {
                 justifyContent: "center",
                 height: 100,
                 width: 100,
+              
               }}
             >
               <Piece pc={b} rank={i} file={j} />
