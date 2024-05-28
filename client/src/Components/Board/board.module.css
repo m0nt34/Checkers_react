@@ -14,15 +14,15 @@
 }
 
 .white_b {
-  height: 80%;
-  width: 80%;
+  height:80%;
+  width:80%;
   user-select: none;
 
   cursor: pointer;
 }
 .black_b {
-  height: 80%;
-  width: 80%;
+  height:80%;
+  width:80%;
   user-select: none;
 
   cursor: pointer;

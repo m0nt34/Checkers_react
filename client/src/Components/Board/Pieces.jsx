@@ -44,11 +44,11 @@ const Pieces = () => {
         newPosition[curPc.rank][curPc.file] = "";
 
         const { x, y } = calculateCoords(e);
-        console.log(x,y)
-        if (x!==null) {
+        console.log(x, y);
+        if (x !== null) {
           newPosition[x][y] = curPc.pc;
           setPosition(newPosition);
-        } 
+        }
       }}
     >
       {position.map((a, i) => {
@@ -63,13 +63,24 @@ const Pieces = () => {
                 justifyContent: "center",
                 height: 100,
                 width: 100,
-                userSelect:'none'
+                userSelect: "none",
               }}
             >
               <Piece pc={b} rank={i} file={j} />
             </div>
           ) : (
-            <div key={i + " " + j} draggable='false' style={{userSelectJ:'none'}}></div>
+            <div
+              key={i + " " + j}
+              draggable="false"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: 100,
+                width: 100,
+                userSelect: "none",
+              }}
+            ></div>
           );
         });
       })}
