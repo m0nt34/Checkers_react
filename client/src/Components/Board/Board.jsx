@@ -20,14 +20,15 @@ const Board = () => {
       <Files files={files} />
       {ranks.map((rank, i) => {
         return (
-          <div className={style.rank} key={rank}>
+          <div className={style.rank} key={rank} style={{userSelect:'none'}} draggable='false'>
             {files.map((file, j) => {
               return (
                 <div
                   className={style.sqr}
                   key={rank + " " + file}
-                  style={{ backgroundColor: getBgColor(i, j) }}
+                  style={{ backgroundColor: getBgColor(i, j) ,userSelect:'none'}}
                   draggable='false'
+                  
                 >
                   
                 </div>

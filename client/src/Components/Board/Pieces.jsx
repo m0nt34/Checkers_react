@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { SetPosition, CopyPosition } from "./SetPosition";
 import Piece from "./Piece";
 const Pieces = () => {
@@ -63,13 +63,13 @@ const Pieces = () => {
                 justifyContent: "center",
                 height: 100,
                 width: 100,
-              
+                userSelect:'none'
               }}
             >
               <Piece pc={b} rank={i} file={j} />
             </div>
           ) : (
-            <div key={i + " " + j}></div>
+            <div key={i + " " + j} draggable='false' style={{userSelectJ:'none'}}></div>
           );
         });
       })}
