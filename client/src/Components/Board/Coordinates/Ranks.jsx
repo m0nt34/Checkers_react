@@ -17,6 +17,7 @@ const Ranks = ({ ranks }) => {
             justifyContent: "flex-end",
             marginRight: "1%",
             zIndex: 2,
+            userSelect:'none'
           }}
           key={rank}
         >

@@ -15,6 +15,10 @@ const Pieces = () => {
     const size = width / 8;
     const y = Math.floor((e.clientX - left) / size);
     const x = Math.floor((e.clientY - top) / size);
+    if (x >= 8 || x <= -1 || y >= 8 || y <= -1) {
+      return { x: null, y: null };
+    }
+
     return { x, y };
   };
   return (
@@ -29,19 +33,23 @@ const Pieces = () => {
       onDragStart={(e) => {
         const [pc, rank, file] = e.dataTransfer.getData("text").split(",");
         setCurPc({
-          pc:pc,
-          rank:rank,
-          file:file
-        })
+          pc: pc,
+          rank: rank,
+          file: file,
+        });
       }}
       onDragEnd={(e) => {
-        const newPosition = CopyPosition(position)
-        
-        newPosition[curPc.rank][curPc.file] = '';
-        
+        const newPosition = CopyPosition(position);
+
+        newPosition[curPc.rank][curPc.file] = "";
+
         const { x, y } = calculateCoords(e);
-        newPosition[x][y] = curPc.pc;
-        setPosition(newPosition)
+
+        if (x && y) {
+          newPosition[x][y] = curPc.pc;
+          setPosition(newPosition);
+        } else {
+        }
       }}
     >
       {position.map((a, i) => {
@@ -49,6 +57,7 @@ const Pieces = () => {
           return b ? (
             <div
               key={i + " " + j}
+              draggable="false"
               style={{
                 display: "flex",
                 alignItems: "center",

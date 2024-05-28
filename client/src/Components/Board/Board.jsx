@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./board.module.css";
-import {ToChar} from "../../Hooks/UseToChar";
+import { ToChar } from "../../Hooks/UseToChar";
 import Ranks from "./Coordinates/Ranks";
 import Files from "./Coordinates/Files";
 import Pieces from "./Pieces";
@@ -16,22 +16,27 @@ const Board = () => {
   };
   return (
     <div className={style.board}>
-      <Pieces/>
-      <Files files={files}/>
+      <Pieces />
+      <Files files={files} />
       {ranks.map((rank, i) => {
         return (
           <div className={style.rank} key={rank}>
             {files.map((file, j) => {
               return (
-                <div className={style.sqr} key={rank + " " + file} style={{backgroundColor:getBgColor(i,j)}}>
-                  {/* {rank + " " + file} */}
+                <div
+                  className={style.sqr}
+                  key={rank + " " + file}
+                  style={{ backgroundColor: getBgColor(i, j) }}
+                  draggable='false'
+                >
+                  
                 </div>
               );
             })}
           </div>
         );
       })}
-      <Ranks ranks={ranks}/>
+      <Ranks ranks={ranks} />
     </div>
   );
 };

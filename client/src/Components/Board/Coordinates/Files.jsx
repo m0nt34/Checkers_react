@@ -17,6 +17,7 @@ const Files = ({ files }) => {
               fontSize: 22,
               color: setColor(i),
               zIndex: 2,
+              userSelect:'none'
             }}
             key={file}
           >
