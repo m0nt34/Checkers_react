@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import style from "./board.module.css";
+import style from "../../assets/Styles/board.module.css";
 import wp from "../../assets/Pieces_Imgs/wp.png";
 import bp from "../../assets/Pieces_Imgs/bp.png";
 const Piece = ({ pc, rank, file }) => {

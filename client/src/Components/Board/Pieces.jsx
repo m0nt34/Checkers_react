@@ -39,15 +39,15 @@ const Pieces = () => {
         });
       }}
       onDragEnd={(e) => {
-        const newPosition = CopyPosition(position);
-
-        newPosition[curPc.rank][curPc.file] = "";
-
         const { x, y } = calculateCoords(e);
-        console.log(x, y);
-        if (x !== null) {
-          newPosition[x][y] = curPc.pc;
-          setPosition(newPosition);
+        if (position[x][y] === "") {
+          const newPosition = CopyPosition(position);
+          newPosition[curPc.rank][curPc.file] = "";
+
+          if (x !== null) {
+            newPosition[x][y] = curPc.pc;
+            setPosition(newPosition);
+          }
         }
       }}
     >

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import Board from "./Components/Board/Board";
 function App() {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import style from "./board.module.css";
-import { ToChar } from "../../Hooks/UseToChar";
+import style from "../../assets/Styles/board.module.css";
+import { ToChar } from "../../Utils/ToChar";
 import Ranks from "./Coordinates/Ranks";
 import Files from "./Coordinates/Files";
 import Pieces from "./Pieces";
