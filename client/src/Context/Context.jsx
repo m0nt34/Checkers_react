@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState, createContext } from "react";
 
-const Context = () => {
+export const UserContext = createContext();
+
+export function UserProvider({ children }) {
+  const [whitesTurn, setWhitesTurn] = useState(false);
+
   return (
-    <div>Context</div>
-  )
+    <UserContext.Provider value={{ whitesTurn, setWhitesTurn }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
-
-export default Context
