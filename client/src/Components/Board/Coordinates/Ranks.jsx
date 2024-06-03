@@ -1,32 +1,16 @@
 import React from "react";
-
+import style from "../../../assets/Styles/board.module.css";
 const Ranks = ({ ranks }) => {
   const setColor = (i) => {
     return i % 2 == 0 ? "var(--light_sqr)" : "var(--dark_sqr)";
   };
   return (
-    <div
-      draggable="false"
-      style={{
-        display: "flex",
-        position: "absolute",
-        bottom: 0,
-        userSelect: "none",
-      }}
-    >
+    <div draggable="false" className={style.coordinates_Ranks}>
       {ranks.map((rank, i) => (
         <span
           draggable="false"
           style={{
-            width: 100,
-            fontWeight: 600,
-            fontSize: 22,
             color: setColor(i),
-            display: "flex",
-            justifyContent: "flex-end",
-            marginRight: "1%",
-            zIndex: 2,
-            userSelect: "none",
           }}
           key={rank}
         >

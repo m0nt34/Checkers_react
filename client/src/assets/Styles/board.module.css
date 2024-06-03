@@ -14,15 +14,15 @@
 }
 
 .white_b {
-  height:80%;
-  width:80%;
+  height: 80%;
+  width: 80%;
   user-select: none;
 
   cursor: pointer;
 }
 .black_b {
-  height:80%;
-  width:80%;
+  height: 80%;
+  width: 80%;
   user-select: none;
 
   cursor: pointer;
@@ -31,4 +31,54 @@
 .white_b:active,
 .black_b:active {
   cursor: grab;
+}
+
+.board .rank {
+  user-select: none;
+}
+.board .coordinates_Files {
+  display: grid;
+  position: absolute;
+  left: 1%;
+  top: 0.5%;
+  user-select: none;
+}
+.board .coordinates_Files span {
+  height: 100px;
+  font-weight: 600;
+  font-size: 22px;
+  z-index: 2;
+  user-select: "none";
+}
+
+.board .coordinates_Ranks {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  user-select: none;
+}
+.board .coordinates_Ranks span {
+  width: 100px;
+  font-weight: 600;
+  font-size: 22px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1%;
+  z-index: 2;
+  user-select: none;
+}
+
+.board .pieces_cont{
+  position: absolute;
+  display: grid;
+  grid-template-columns:  repeat(8,100px);
+  grid-template-rows: repeat(8,100px);
+}
+.board .pieces_cont .positional_piece{
+  display: flex;
+  align-Items: center;
+  justify-Content: center;
+  height: 100px;
+  width: 100px;
+  user-Select: none;
 }

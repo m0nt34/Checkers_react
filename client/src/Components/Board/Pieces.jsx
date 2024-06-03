@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { SetPosition, CopyPosition } from "./SetPosition";
 import Piece from "./Piece";
+import style from "../../assets/Styles/board.module.css";
 const Pieces = () => {
   const ref = useRef(null);
   const [position, setPosition] = useState(SetPosition());
@@ -21,66 +22,47 @@ const Pieces = () => {
 
     return { x, y };
   };
+
+  const onDragStart = (e) => {
+    const [pc, rank, file] = e.dataTransfer.getData("text").split(",");
+    setCurPc({
+      pc: pc,
+      rank: rank,
+      file: file,
+    });
+  };
+  
+  const onDragEnd = (e) => {
+    const { x, y } = calculateCoords(e);
+    if (x !== null && position[x][y] === "") {
+      const newPosition = CopyPosition(position);
+      newPosition[curPc.rank][curPc.file] = "";
+
+      newPosition[x][y] = curPc.pc;
+      setPosition(newPosition);
+    }
+  }
+
+  
   return (
     <div
+      className={style.pieces_cont}
       ref={ref}
-      style={{
-        position: "absolute",
-        display: "grid",
-        gridTemplateColumns: " repeat(8,100px)",
-        gridTemplateRows: " repeat(8,100px)",
-      }}
-      onDragStart={(e) => {
-        const [pc, rank, file] = e.dataTransfer.getData("text").split(",");
-        setCurPc({
-          pc: pc,
-          rank: rank,
-          file: file,
-        });
-      }}
-      onDragEnd={(e) => {
-        const { x, y } = calculateCoords(e);
-        if (position[x][y] === "") {
-          const newPosition = CopyPosition(position);
-          newPosition[curPc.rank][curPc.file] = "";
-
-          if (x !== null) {
-            newPosition[x][y] = curPc.pc;
-            setPosition(newPosition);
-          }
-        }
-      }}
+      onDragStart={(e) => onDragStart(e)}
+      onDragEnd={(e) => onDragEnd(e)}
     >
       {position.map((a, i) => {
         return a.map((b, j) => {
           return b ? (
             <div
+              className={style.positional_piece}
               key={i + " " + j}
               draggable="false"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: 100,
-                width: 100,
-                userSelect: "none",
-              }}
             >
               <Piece pc={b} rank={i} file={j} />
             </div>
           ) : (
-            <div
-              key={i + " " + j}
-              draggable="false"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: 100,
-                width: 100,
-                userSelect: "none",
-              }}
-            ></div>
+            <div key={i + " " + j} draggable="false"></div>
           );
         });
       })}
