@@ -1,8 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { SetPosition, CopyPosition } from "./SetPosition";
 import Piece from "./Piece";
 import style from "../../assets/Styles/board.module.css";
+import { PLogic } from "../../Utils/MovesLogic/PLogic";
+import { TurnContext } from "../../Context/Context";
+import { Turn } from "../../Utils/MovesLogic/TurnLogic";
 const Pieces = () => {
+  const { whitesTurn, setWhitesTurn } = useContext(TurnContext);
+
   const ref = useRef(null);
   const [position, setPosition] = useState(SetPosition());
   const [curPc, setCurPc] = useState({
@@ -31,25 +36,27 @@ const Pieces = () => {
       file: file,
     });
   };
-  
+
   const onDragEnd = (e) => {
     const { x, y } = calculateCoords(e);
-    if (x !== null && position[x][y] === "") {
-      const newPosition = CopyPosition(position);
-      newPosition[curPc.rank][curPc.file] = "";
+    if (Turn(whitesTurn, curPc.pc)) {
+      if (x !== null && position[x][y] === "") {
+        const newPosition = CopyPosition(position);
+        newPosition[curPc.rank][curPc.file] = "";
 
-      newPosition[x][y] = curPc.pc;
-      setPosition(newPosition);
+        newPosition[x][y] = curPc.pc;
+        setPosition(newPosition);
+        setWhitesTurn(!whitesTurn)
+      }
     }
-  }
+  };
 
-  
   return (
     <div
       className={style.pieces_cont}
       ref={ref}
-      onDragStart={(e) => onDragStart(e)}
-      onDragEnd={(e) => onDragEnd(e)}
+      onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
     >
       {position.map((a, i) => {
         return a.map((b, j) => {

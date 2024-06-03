@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import style from "../../assets/Styles/board.module.css";
 import { ToChar } from "../../Utils/ToChar";
 import Ranks from "./Coordinates/Ranks";
 import Files from "./Coordinates/Files";
 import Pieces from "./Pieces";
+
+
 const Board = () => {
   const ranks = Array(8)
     .fill()
@@ -14,6 +16,8 @@ const Board = () => {
   const getBgColor = (i, j) => {
     return (i + j) % 2 == 1 ? "var(--dark_sqr)" : "var(--light_sqr)";
   };
+
+
   return (
     <div className={style.board}>
       <Pieces />
@@ -28,9 +32,7 @@ const Board = () => {
                   key={rank + " " + file}
                   style={{ backgroundColor: getBgColor(i, j) ,userSelect:'none'}}
                   draggable='false'
-                  
                 >
-                  
                 </div>
               );
             })}
