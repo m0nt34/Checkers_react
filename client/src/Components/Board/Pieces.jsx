@@ -9,7 +9,7 @@ const Pieces = () => {
   const { whitesTurn, setWhitesTurn } = useContext(TurnContext);
 
   const ref = useRef(null);
-  let avMoves = null;
+  let avMoves = useRef(null);
   const [position, setPosition] = useState(SetPosition());
   const curPc = useRef({
     pc: null,
@@ -31,30 +31,46 @@ const Pieces = () => {
 
   const onDragStart = (e) => {
     const [pc, rank, file] = e.dataTransfer.getData("text").split(",");
-    curPc.current = ({
+    curPc.current = {
       pc: pc,
       rank: rank,
       file: file,
-    });
-    avMoves = PLogic(whitesTurn, position, curPc.current.rank, curPc.current.file);
-    //console.log(moves)
+    };
+    avMoves.current = PLogic(
+      whitesTurn,
+      position,
+      curPc.current.rank,
+      curPc.current.file
+    );
   };
 
   const onDragEnd = (e) => {
     const { x, y } = calculateCoords(e);
-    console.log(avMoves)
-    if (Turn(whitesTurn, curPc.current.pc)) {
-      if (x !== null && position[x][y] === "") {
-        const newPosition = CopyPosition(position);
-        newPosition[curPc.current.rank][curPc.current.file] = "";
+    // console.log(avMoves.current);
+    // console.log(checkIfCanMove(x, y))
+    if (checkIfCanMove(x, y)) {
+      if (Turn(whitesTurn, curPc.current.pc)) {
+        if (x !== null && position[x][y] === "") {
+          const newPosition = CopyPosition(position);
+          newPosition[curPc.current.rank][curPc.current.file] = "";
 
-        newPosition[x][y] = curPc.current.pc;
-        setPosition(newPosition);
-        setWhitesTurn(!whitesTurn);
+          newPosition[x][y] = curPc.current.pc;
+          setPosition(newPosition);
+          setWhitesTurn(!whitesTurn);
+        }
       }
     }
+    avMoves.current = null;
   };
-
+  const checkIfCanMove = (x, y) => {
+    let canMove = false;
+    avMoves.current.forEach((cor) => {
+      if (cor[0] === x && cor[1] === y) {
+        canMove = true;
+      }
+    });
+    return canMove;
+  };
   return (
     <div
       className={style.pieces_cont}
