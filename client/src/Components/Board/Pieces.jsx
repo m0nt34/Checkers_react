@@ -4,13 +4,14 @@ import Piece from "./Piece";
 import style from "../../assets/Styles/board.module.css";
 import { PLogic } from "../../Utils/MovesLogic/PLogic";
 import { TurnContext } from "../../Context/Context";
-import { Turn } from "../../Utils/MovesLogic/TurnLogic";
+import { Turn } from "../../Utils/TurnLogic";
 const Pieces = () => {
   const { whitesTurn, setWhitesTurn } = useContext(TurnContext);
 
   const ref = useRef(null);
+  let avMoves = null;
   const [position, setPosition] = useState(SetPosition());
-  const [curPc, setCurPc] = useState({
+  const curPc = useRef({
     pc: null,
     rank: null,
     file: null,
@@ -30,23 +31,26 @@ const Pieces = () => {
 
   const onDragStart = (e) => {
     const [pc, rank, file] = e.dataTransfer.getData("text").split(",");
-    setCurPc({
+    curPc.current = ({
       pc: pc,
       rank: rank,
       file: file,
     });
+    avMoves = PLogic(whitesTurn, position, curPc.current.rank, curPc.current.file);
+    //console.log(moves)
   };
 
   const onDragEnd = (e) => {
     const { x, y } = calculateCoords(e);
-    if (Turn(whitesTurn, curPc.pc)) {
+    console.log(avMoves)
+    if (Turn(whitesTurn, curPc.current.pc)) {
       if (x !== null && position[x][y] === "") {
         const newPosition = CopyPosition(position);
-        newPosition[curPc.rank][curPc.file] = "";
+        newPosition[curPc.current.rank][curPc.current.file] = "";
 
-        newPosition[x][y] = curPc.pc;
+        newPosition[x][y] = curPc.current.pc;
         setPosition(newPosition);
-        setWhitesTurn(!whitesTurn)
+        setWhitesTurn(!whitesTurn);
       }
     }
   };
