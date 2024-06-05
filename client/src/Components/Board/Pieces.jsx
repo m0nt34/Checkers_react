@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import { SetPosition, CopyPosition } from "./SetPosition";
 import Piece from "./Piece";
 import style from "../../assets/Styles/board.module.css";
-import { PLogic } from "../../Utils/MovesLogic/PLogic";
+import { PLogic, checkIfCanMove } from "../../Utils/MovesLogic/PLogic";
 import { TurnContext } from "../../Context/Context";
 import { Turn } from "../../Utils/TurnLogic";
 const Pieces = () => {
@@ -38,18 +38,15 @@ const Pieces = () => {
     };
     avMoves.current = PLogic(
       whitesTurn,
-      position,
       curPc.current.rank,
       curPc.current.file
     );
   };
 
   const onDragEnd = (e) => {
-    const { x, y } = calculateCoords(e);
-    // console.log(avMoves.current);
-    // console.log(checkIfCanMove(x, y))
-    if (checkIfCanMove(x, y)) {
-      if (Turn(whitesTurn, curPc.current.pc)) {
+    if (Turn(whitesTurn, curPc.current.pc)) {
+      const { x, y } = calculateCoords(e);
+      if (checkIfCanMove(x, y, avMoves.current)) {
         if (x !== null && position[x][y] === "") {
           const newPosition = CopyPosition(position);
           newPosition[curPc.current.rank][curPc.current.file] = "";
@@ -62,15 +59,7 @@ const Pieces = () => {
     }
     avMoves.current = null;
   };
-  const checkIfCanMove = (x, y) => {
-    let canMove = false;
-    avMoves.current.forEach((cor) => {
-      if (cor[0] === x && cor[1] === y) {
-        canMove = true;
-      }
-    });
-    return canMove;
-  };
+
   return (
     <div
       className={style.pieces_cont}
