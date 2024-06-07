@@ -8,6 +8,7 @@ import { Turn } from "../../Utils/TurnLogic";
 const Pieces = () => {
   const { whitesTurn, setWhitesTurn } = useContext(TurnContext);
 
+  
   const ref = useRef(null);
   let avMoves = useRef(null);
   const [position, setPosition] = useState(SetPosition());
