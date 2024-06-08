@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { SetPosition, CopyPosition } from "./SetPosition";
+import { SetPosition, CopyPosition } from "../../Utils/SetPosition";
 import Piece from "./Piece";
 import style from "../../assets/Styles/board.module.css";
 import { PLogic, checkIfCanMove } from "../../Utils/MovesLogic/PLogic";
@@ -7,16 +7,14 @@ import { TurnContext } from "../../Context/Context";
 import { Turn } from "../../Utils/TurnLogic";
 const Pieces = () => {
   const { whitesTurn, setWhitesTurn } = useContext(TurnContext);
-
-  
-  const ref = useRef(null);
-  let avMoves = useRef(null);
   const [position, setPosition] = useState(SetPosition());
   const curPc = useRef({
     pc: null,
     rank: null,
     file: null,
   });
+  const ref = useRef(null);
+  const avMoves = useRef(null);
 
   const calculateCoords = (e) => {
     const { width, left, top } = ref.current.getBoundingClientRect();
@@ -37,11 +35,7 @@ const Pieces = () => {
       rank: rank,
       file: file,
     };
-    avMoves.current = PLogic(
-      whitesTurn,
-      curPc.current.rank,
-      curPc.current.file
-    );
+    avMoves.current = PLogic(whitesTurn, pc, rank, file, position);
   };
 
   const onDragEnd = (e) => {
