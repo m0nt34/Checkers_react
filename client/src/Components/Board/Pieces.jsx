@@ -39,6 +39,7 @@ const Pieces = () => {
   };
 
   const onDragEnd = (e) => {
+  
     if (Turn(whitesTurn, curPc.current.pc)) {
       const { x, y } = calculateCoords(e);
       if (checkIfCanMove(x, y, avMoves.current)) {
