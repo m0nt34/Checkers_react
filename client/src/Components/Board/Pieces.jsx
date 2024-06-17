@@ -2,7 +2,12 @@ import React, { useContext, useRef, useState } from "react";
 import { SetPosition, CopyPosition } from "../../Utils/SetPosition";
 import Piece from "./Piece";
 import style from "../../assets/Styles/board.module.css";
-import { PLogic, checkIfCanMove } from "../../Utils/MovesLogic/PLogic";
+import {
+  PLogic,
+  checkIfCanMove,
+  checkIfCanCaptureHelpFunction,
+} from "../../Utils/MovesLogic/PLogic";
+import { checkIfPromote } from "../../Utils/PromotionLogic";
 import { TurnContext } from "../../Context/Context";
 import { Turn } from "../../Utils/TurnLogic";
 const Pieces = () => {
@@ -13,6 +18,7 @@ const Pieces = () => {
     rank: null,
     file: null,
   });
+  const capturePiece = useRef(false);
   const ref = useRef(null);
   const avMoves = useRef(null);
 
@@ -35,21 +41,48 @@ const Pieces = () => {
       rank: rank,
       file: file,
     };
-    avMoves.current = PLogic(whitesTurn, pc, rank, file, position);
+    let { moves, capture } = PLogic(whitesTurn, pc, rank, file, position);
+    avMoves.current = moves;
+    capturePiece.current = capture;
   };
 
   const onDragEnd = (e) => {
-  
     if (Turn(whitesTurn, curPc.current.pc)) {
       const { x, y } = calculateCoords(e);
       if (checkIfCanMove(x, y, avMoves.current)) {
         if (x !== null && position[x][y] === "") {
-          const newPosition = CopyPosition(position);
-          newPosition[curPc.current.rank][curPc.current.file] = "";
+          let newPosition = CopyPosition(position);
+          let wt = whitesTurn;
 
+          newPosition[curPc.current.rank][curPc.current.file] = "";
           newPosition[x][y] = curPc.current.pc;
+          const { promote, newPositionWP } = checkIfPromote(
+            newPosition,
+            whitesTurn
+          );
+          if (promote) {
+            newPosition = newPositionWP;
+          }
+          if (capturePiece.current) {
+            let xx, yy;
+            xx = x - (x > curPc.current.rank ? 1 : -1);
+            yy = y - (y > curPc.current.file ? 1 : -1);
+            newPosition[xx][yy] = "";
+            capturePiece.current = false;
+            if (
+              checkIfCanCaptureHelpFunction(
+                position,
+                x,
+                y,
+                whitesTurn ? "b" : "w"
+              )
+            ) {
+              wt = !wt;
+            }
+          }
+          wt = !wt;
+          setWhitesTurn(wt);
           setPosition(newPosition);
-          setWhitesTurn(!whitesTurn);
         }
       }
     }
@@ -62,6 +95,7 @@ const Pieces = () => {
       ref={ref}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
+      onClick={calculateCoords}
     >
       {position.map((a, i) => {
         return a.map((b, j) => {

@@ -13,7 +13,6 @@ export const SetPosition = () => {
     position[2][i] = "bp";
     position[6][i] = "wp";
   }
-
   return position;
 };
 
