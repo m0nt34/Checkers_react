@@ -2,7 +2,6 @@ export const checkIfPromote = (position, wt) => {
 
   if (wt) {
     for (let i = 1; i < 8; i+=2) {
-      console.log(position[0][i]);
       if (position[0][i] === "wp") {
         
         position[0][i] = "wk"

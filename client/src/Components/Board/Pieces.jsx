@@ -4,9 +4,10 @@ import Piece from "./Piece";
 import style from "../../assets/Styles/board.module.css";
 import {
   PLogic,
-  checkIfCanMove,
   checkIfCanCaptureHelpFunction,
+  checkIfCanCaptureHelpFunctionK,
 } from "../../Utils/MovesLogic/PLogic";
+import { checkIfCanMove } from "../../Utils/MovesLogic/CheckIfCanMove";
 import { checkIfPromote } from "../../Utils/PromotionLogic";
 import { TurnContext } from "../../Context/Context";
 import { Turn } from "../../Utils/TurnLogic";
@@ -63,32 +64,56 @@ const Pieces = () => {
           if (promote) {
             newPosition = newPositionWP;
           }
-          if (capturePiece.current) {
-            let xx, yy;
-            xx = x - (x > curPc.current.rank ? 1 : -1);
-            yy = y - (y > curPc.current.file ? 1 : -1);
-            newPosition[xx][yy] = "";
-            capturePiece.current = false;
-            if (
-              checkIfCanCaptureHelpFunction(
-                position,
-                x,
-                y,
-                whitesTurn ? "b" : "w"
-              )
-            ) {
-              wt = !wt;
-            }
-          }
-          wt = !wt;
-          setWhitesTurn(wt);
-          setPosition(newPosition);
+          let { newPositionAC, wtAC } = checkIfPieceIsCaptured(
+            newPosition,
+            x,
+            y,
+            wt
+          );
+          wtAC = !wtAC;
+          setWhitesTurn(wtAC);
+          setPosition(newPositionAC);
         }
       }
     }
     avMoves.current = null;
   };
 
+  const checkIfPieceIsCaptured = (newPositionAC, x, y, wtAC) => {
+    if (capturePiece.current) {
+      if(curPc.current.pc.endsWith('p')){
+        let xx, yy;
+        xx = x - (x > curPc.current.rank ? 1 : -1);
+        yy = y - (y > curPc.current.file ? 1 : -1);
+        newPositionAC[xx][yy] = "";
+        capturePiece.current = false;
+        if (
+          checkIfCanCaptureHelpFunction(newPositionAC, x, y, whitesTurn ? "b" : "w")
+        ) {
+          wtAC = !wtAC;
+        }
+        return { newPositionAC, wtAC };
+      }else if(curPc.current.pc.endsWith('k')){
+        let xx, yy;
+      
+        xx = x - (x > curPc.current.rank ? 1 : -1);
+        yy = y - (y > curPc.current.file ? 1 : -1);
+        newPositionAC[xx][yy] = "";
+        capturePiece.current = false;
+        
+        if (
+          checkIfCanCaptureHelpFunctionK(newPositionAC, x, y, whitesTurn ? "b" : "w")
+        ) {
+
+          wtAC = !wtAC;
+    
+        }
+        return { newPositionAC, wtAC };
+      }
+    } else {
+      return { newPositionAC, wtAC };
+    }
+  };
   return (
     <div
       className={style.pieces_cont}
