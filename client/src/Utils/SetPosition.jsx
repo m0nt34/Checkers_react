@@ -8,6 +8,7 @@ export const SetPosition = () => {
     position[5][i] = "wp";
     position[7][i] = "wp";
   }
+  
   for (let i = 1; i < 8; i += 2) {
       position[0][i] = "bp";
       position[2][i] = "bp";
