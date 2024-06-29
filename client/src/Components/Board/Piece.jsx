@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import style from "../../assets/Styles/board.module.css";
-import wp from "../../assets/Pieces_Imgs/wp.png";
-import bp from "../../assets/Pieces_Imgs/bp.png";
-import wk from "../../assets/Pieces_Imgs/wk.png";
-import bk from "../../assets/Pieces_Imgs/bk.png";
+import wp from "../../assets/Images/wp.png";
+import bp from "../../assets/Images/bp.png";
+import wk from "../../assets/Images/wk.png";
+import bk from "../../assets/Images/bk.png";
 const Piece = ({ pc, rank, file }) => {
   const [isGrabbing, setIsGrabbing] = useState(false);
 
