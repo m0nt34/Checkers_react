@@ -1,13 +1,14 @@
 import React from "react";
 
-const ClockSVG = ({ iconCl }) => {
+const ClockSVG = ({ iconCl ,rotation}) => {
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
+      width="24"
+      height="24"
       viewBox="0 0 20 20"
-      style={{ rotate: "90deg" }}
+      style={{ rotate:` ${rotation.current}deg`}}
       fill={iconCl}
     >
       <path d="M5.48,9a.93.93,0,0,0-.3.71v.58a.94.94,0,0,0,.3.71,1,1,0,0,0,.71.3h4.58a1,1,0,0,0,.71-.3.94.94,0,0,0,.29-.71V9.7A.92.92,0,0,0,11.48,9a1,1,0,0,0-.71-.27H6.19A1,1,0,0,0,5.48,9Z"></path>
